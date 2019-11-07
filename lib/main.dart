@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'now_playing.dart';
 
 void main() => runApp(App());
+NowPlaying nowPlaying;
 
 class App extends StatelessWidget {
   @override
@@ -22,7 +23,6 @@ class MovieList extends StatefulWidget {
 }
 
 class _MovieListState extends State<MovieList> {
-  NowPlaying nowPlaying;
   final apikey = 'Your_apikey';
   final baseURL = 'https://api.themoviedb.org/3/movie';
 
@@ -32,6 +32,7 @@ class _MovieListState extends State<MovieList> {
       var decodedJson = jsonDecode(respone.body);
       nowPlaying = NowPlaying.fromJson((decodedJson));
       print(nowPlaying.toJson());
+      setState(() {});
     } else {
       throw Exception('Failed to load data');
     }
@@ -47,12 +48,47 @@ class _MovieListState extends State<MovieList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MOVIE'),
+        title: Text('Now Playing Movie'),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-//        children: nowPlaying.results.map((nowPlaying) => Card()).toList(),
-      ),
+      body: nowPlaying == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : GridView.count(
+              crossAxisCount: 2,
+              children: nowPlaying.results
+                  .map((v) => Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Card(
+                          child: Column(
+                            children: <Widget>[
+                              /*Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+//                                        '$baseURL/${v.backdropPath}'),
+                                      'https://api.themoviedb.org/3/movie/w185${v.posterPath}',
+                                    ),
+                                  ),
+                                ),
+                              ),*/
+                              Text(
+                                v.originalTitle,
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                '${v.popularity}',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ))
+                  .toList(),
+            ),
     );
   }
 }
