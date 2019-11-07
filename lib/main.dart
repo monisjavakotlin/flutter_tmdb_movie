@@ -58,13 +58,15 @@ class _MovieListState extends State<MovieList> {
               child: CircularProgressIndicator(),
             )
           : GridView.count(
-              crossAxisCount: 2,
+              crossAxisCount: 1,
               children: nowPlaying.results
                   .map((v) => Padding(
-                        padding: EdgeInsets.all(4.0),
+                        padding: EdgeInsets.all(10.0),
                         child: SizedBox(
                           child: Card(
-                            elevation: 5.0,
+                            elevation: 10.0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
@@ -78,11 +80,11 @@ class _MovieListState extends State<MovieList> {
                                   ),
                                 ),*/
                                 Flexible(
-                                  flex: 1,
+                                  flex: 15,
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        fit: BoxFit.cover,
+//                                        fit: BoxFit.cover,
                                         image: NetworkImage(
                                           '$imageURL$size${v.posterPath}?api_key=$apikey',
                                         ),
@@ -90,13 +92,13 @@ class _MovieListState extends State<MovieList> {
                                     ),
                                   ),
                                 ),
-                                /*Flexible(
+                                Flexible(
                                   flex: 1,
                                   child: Padding(
                                     padding: EdgeInsets.all(2.0),
                                     child: Text(
                                       'VoteAverage : ${v.voteAverage.toString()}',
-                                      style: TextStyle(fontSize: 16.0),
+                                      style: TextStyle(fontSize: 14.0),
                                     ),
                                   ),
                                 ),
@@ -106,10 +108,10 @@ class _MovieListState extends State<MovieList> {
                                     padding: EdgeInsets.all(2.0),
                                     child: Text(
                                       'Popularity : ${v.popularity}',
-                                      style: TextStyle(fontSize: 14.0),
+                                      style: TextStyle(fontSize: 12.0),
                                     ),
                                   ),
-                                ),*/
+                                ),
                               ],
                             ),
                           ),
