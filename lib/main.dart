@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 import 'now_playing.dart';
@@ -23,8 +24,10 @@ class MovieList extends StatefulWidget {
 }
 
 class _MovieListState extends State<MovieList> {
-  final apikey = 'Your_apikey';
+  final apikey = 'Your api_key';
   final baseURL = 'https://api.themoviedb.org/3/movie';
+  final imageURL = 'https://image.tmdb.org/t/p/';
+  final size = 'w500';
 
   Future<NowPlaying> fetchMovieList() async {
     var respone = await http.get('$baseURL/now_playing?api_key=$apikey');
@@ -59,31 +62,56 @@ class _MovieListState extends State<MovieList> {
               children: nowPlaying.results
                   .map((v) => Padding(
                         padding: EdgeInsets.all(4.0),
-                        child: Card(
-                          child: Column(
-                            children: <Widget>[
-                              /*Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-//                                        '$baseURL/${v.backdropPath}'),
-                                      'https://api.themoviedb.org/3/movie/w185${v.posterPath}',
+                        child: SizedBox(
+                          child: Card(
+                            elevation: 5.0,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                /*Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    v.originalTitle,
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),*/
+                                Flexible(
+                                  flex: 1,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                          '$imageURL$size${v.posterPath}?api_key=$apikey',
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),*/
-                              Text(
-                                v.originalTitle,
-                                style: TextStyle(fontSize: 16.0),
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              Text(
-                                '${v.popularity}',
-                                style: TextStyle(fontSize: 16.0),
-                              ),
-                            ],
+                                /*Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'VoteAverage : ${v.voteAverage.toString()}',
+                                      style: TextStyle(fontSize: 16.0),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'Popularity : ${v.popularity}',
+                                      style: TextStyle(fontSize: 14.0),
+                                    ),
+                                  ),
+                                ),*/
+                              ],
+                            ),
                           ),
                         ),
                       ))
