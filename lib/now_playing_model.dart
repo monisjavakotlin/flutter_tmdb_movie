@@ -1,9 +1,9 @@
-class NowPlaying {
+class NowPlayingModel {
   List<Results> results;
 
-  NowPlaying({this.results});
+  NowPlayingModel({this.results});
 
-  NowPlaying.fromJson(Map<String, dynamic> json) {
+  NowPlayingModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
       results = new List<Results>();
       json['results'].forEach((v) {
