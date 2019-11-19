@@ -1,20 +1,55 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'now_playing_model.dart';
+import 'query_key_model.dart';
 import 'youtube_demo.dart';
 
-class NowPlayingDetail extends StatelessWidget {
+class NowPlayingDetail extends StatefulWidget {
+  static String videoId = 'xRjvmVaFHkk';
   final Results results;
   final String apikey;
   final String imageURL;
+  final String baseURL;
   final String size;
+  final int id;
 
   NowPlayingDetail({
     this.results,
     this.apikey,
     this.imageURL,
+    this.baseURL,
     this.size,
+    this.id,
   });
+
+  @override
+  _NowPlayingDetailState createState() => _NowPlayingDetailState();
+}
+
+class _NowPlayingDetailState extends State<NowPlayingDetail> {
+  QueryKey queryKeyData;
+
+  Future<QueryKey> fetchVideoId(int id) async {
+    var respone =
+        await http.get('${widget.baseURL}/$id/videos?api_key=${widget.apikey}');
+    if (respone.statusCode == 200) {
+      var decodedJson = jsonDecode(respone.body);
+      queryKeyData = QueryKey.fromJson((decodedJson));
+      print(queryKeyData.toJson());
+    } else {
+      throw Exception('Failed to load data');
+    }
+    return queryKeyData;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchVideoId(widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,27 +80,41 @@ class NowPlayingDetail extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      results.originalTitle,
+                      widget.results.originalTitle,
                       style: TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  /*     IconButton(
+                    tooltip: 'trailer',
+                    icon: Icon(
+                      Icons.reply_all,
+                      size: 40.0,
+                    ),
+                    onPressed: () {
+                      fetchVideoId(widget.id);
+                    },
+                  ),*/
                   IconButton(
                     tooltip: 'trailer',
                     icon: Icon(
                       Icons.local_movies,
                       size: 40.0,
                     ),
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => YoutubeDemo())),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => YoutubeDemo()));
+                    },
                   ),
                   Text("GenreIds",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: results.genreIds == null
+                    children: widget.results.genreIds == null
                         ? <Widget>[Text("This is the final form")]
-                        : results.genreIds
+                        : widget.results.genreIds
                             .map((n) => FilterChip(
                                   backgroundColor: Colors.green,
                                   label: Text(
@@ -83,7 +132,8 @@ class NowPlayingDetail extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Hero(
-                tag: '$imageURL$size${results.posterPath}?api_key=$apikey',
+                tag:
+                    '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}',
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
@@ -93,7 +143,7 @@ class NowPlayingDetail extends StatelessWidget {
                       image: DecorationImage(
 //                      fit: BoxFit.cover,
                         image: NetworkImage(
-                            '$imageURL$size${results.posterPath}?api_key=$apikey'),
+                            '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}'),
                       ),
                     ),
                   ),

@@ -25,7 +25,8 @@ class MovieList extends StatefulWidget {
 
 class _MovieListState extends State<MovieList> {
   NowPlayingModel nowPlayingData;
-  final apikey = 'b2512b9e0da3646a0591fb126baff42e';
+
+  final apikey = 'Your_api_key';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';
@@ -47,6 +48,7 @@ class _MovieListState extends State<MovieList> {
   void initState() {
     super.initState();
     fetchMovieList();
+    setState(() {});
   }
 
   @override
@@ -67,6 +69,7 @@ class _MovieListState extends State<MovieList> {
                         padding: EdgeInsets.all(5.0),
                         child: InkWell(
                           onTap: () {
+                            print(playing.id);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -74,7 +77,9 @@ class _MovieListState extends State<MovieList> {
                                           results: playing,
                                           apikey: apikey,
                                           imageURL: imageURL,
+                                          baseURL: baseURL,
                                           size: size,
+                                          id: playing.id,
                                         )));
                           },
                           child: Hero(
