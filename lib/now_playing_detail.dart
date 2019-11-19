@@ -5,10 +5,11 @@ import 'package:http/http.dart' as http;
 
 import 'now_playing_model.dart';
 import 'query_key_model.dart';
-import 'youtube_demo.dart';
+import 'youtube_trailer.dart';
 
 class NowPlayingDetail extends StatefulWidget {
-  static String videoId = 'xRjvmVaFHkk';
+  List<String> keys = List<String>();
+  static String videoId = '';
   final Results results;
   final String apikey;
   final String imageURL;
@@ -30,15 +31,18 @@ class NowPlayingDetail extends StatefulWidget {
 }
 
 class _NowPlayingDetailState extends State<NowPlayingDetail> {
-  QueryKey queryKeyData;
+  QueryKeyModel queryKeyData;
 
-  Future<QueryKey> fetchVideoId(int id) async {
+  Future<QueryKeyModel> fetchVideoId(int id) async {
     var respone =
         await http.get('${widget.baseURL}/$id/videos?api_key=${widget.apikey}');
     if (respone.statusCode == 200) {
       var decodedJson = jsonDecode(respone.body);
-      queryKeyData = QueryKey.fromJson((decodedJson));
+      queryKeyData = QueryKeyModel.fromJson((decodedJson));
       print(queryKeyData.toJson());
+      queryKeyData.results.forEach((f) => widget.keys.add(f.key));
+      NowPlayingDetail.videoId = widget.keys[0];
+      print(widget.keys[0]);
     } else {
       throw Exception('Failed to load data');
     }
@@ -95,20 +99,57 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                       fetchVideoId(widget.id);
                     },
                   ),*/
-                  IconButton(
-                    tooltip: 'trailer',
-                    icon: Icon(
-                      Icons.local_movies,
-                      size: 40.0,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => YoutubeDemo()));
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                        tooltip: 'trailer1',
+                        icon: Icon(
+                          Icons.local_movies,
+                          size: 40.0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => YoutubeTrailer()));
+                        },
+                      ),
+                      IconButton(
+                        tooltip: 'trailer2',
+                        icon: Icon(
+                          Icons.local_movies,
+                          size: 40.0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => YoutubeTrailer()));
+                        },
+                      ),
+                      IconButton(
+                        tooltip: 'trailer3',
+                        icon: Icon(
+                          Icons.local_movies,
+                          size: 40.0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => YoutubeTrailer()));
+                        },
+                      ),
+                    ],
                   ),
-                  Text("GenreIds",
+                  Text(
+                    widget.results.overview,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    maxLines: 5,
+                  ),
+                  /*     Text("GenreIds",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -124,7 +165,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                                   onSelected: (b) {},
                                 ))
                             .toList(),
-                  )
+                  )*/
                 ],
               ),
             ),

@@ -1,19 +1,20 @@
 import 'dart:convert';
 
-QueryKey queryKeyFromJson(String str) => QueryKey.fromJson(json.decode(str));
+QueryKeyModel queryKeyFromJson(String str) =>
+    QueryKeyModel.fromJson(json.decode(str));
 
-String queryKeyToJson(QueryKey data) => json.encode(data.toJson());
+String queryKeyToJson(QueryKeyModel data) => json.encode(data.toJson());
 
-class QueryKey {
+class QueryKeyModel {
   int id;
   List<Result> results;
 
-  QueryKey({
+  QueryKeyModel({
     this.id,
     this.results,
   });
 
-  factory QueryKey.fromJson(Map<String, dynamic> json) => QueryKey(
+  factory QueryKeyModel.fromJson(Map<String, dynamic> json) => QueryKeyModel(
         id: json["id"],
         results:
             List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
