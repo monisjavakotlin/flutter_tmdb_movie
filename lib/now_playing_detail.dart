@@ -6,10 +6,14 @@ import 'package:http/http.dart' as http;
 import 'now_playing_model.dart';
 import 'query_key_model.dart';
 import 'youtube_trailer.dart';
+import 'youtube_trailer2.dart';
+import 'youtube_trailer3.dart';
 
 class NowPlayingDetail extends StatefulWidget {
   List<String> keys = List<String>();
-  static String videoId = '';
+  static String videoId1 = '';
+  static String videoId2 = '';
+  static String videoId3 = '';
   final Results results;
   final String apikey;
   final String imageURL;
@@ -41,8 +45,25 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
       queryKeyData = QueryKeyModel.fromJson((decodedJson));
       print(queryKeyData.toJson());
       queryKeyData.results.forEach((f) => widget.keys.add(f.key));
-      NowPlayingDetail.videoId = widget.keys[0];
-      print(widget.keys[0]);
+      if (widget.keys.length >= 3) {
+        NowPlayingDetail.videoId1 = widget.keys[0];
+        NowPlayingDetail.videoId2 = widget.keys[1];
+        NowPlayingDetail.videoId3 = widget.keys[2];
+        print(widget.keys[0]);
+        print(widget.keys[1]);
+        print(widget.keys[2]);
+      } else if (widget.keys.length >= 2) {
+        NowPlayingDetail.videoId1 = widget.keys[0];
+        NowPlayingDetail.videoId2 = widget.keys[1];
+        NowPlayingDetail.videoId3 = '';
+        print(widget.keys[0]);
+        print(widget.keys[1]);
+      } else {
+        NowPlayingDetail.videoId1 = widget.keys[0];
+        NowPlayingDetail.videoId2 = '';
+        NowPlayingDetail.videoId3 = '';
+        print(widget.keys[0]);
+      }
     } else {
       throw Exception('Failed to load data');
     }
@@ -86,7 +107,11 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                     child: Text(
                       widget.results.originalTitle,
                       style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   /*     IconButton(
@@ -125,7 +150,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer()));
+                                  builder: (context) => YoutubeTrailer2()));
                         },
                       ),
                       IconButton(
@@ -138,7 +163,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer()));
+                                  builder: (context) => YoutubeTrailer3()));
                         },
                       ),
                     ],
@@ -147,7 +172,8 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                     widget.results.overview,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold),
-                    maxLines: 5,
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   /*     Text("GenreIds",
                       style: TextStyle(fontWeight: FontWeight.bold)),
