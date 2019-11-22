@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'now_playing_model.dart';
-import 'query_key_model.dart';
-import 'youtube_trailer.dart';
-import 'youtube_trailer2.dart';
-import 'youtube_trailer3.dart';
+import '../models/now_playing_model.dart';
+import '../models/query_key_model.dart';
+import '../trailer/youtube_trailer.dart';
+import '../trailer/youtube_trailer2.dart';
+import '../trailer/youtube_trailer3.dart';
 
 class NowPlayingDetail extends StatefulWidget {
   List<String> keys = List<String>();
@@ -74,6 +74,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
   void initState() {
     super.initState();
     fetchVideoId(widget.id);
+    setState(() {});
   }
 
   @override

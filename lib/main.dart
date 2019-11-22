@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart' as http;
 
-import 'now_playing_detail.dart';
-import 'now_playing_model.dart';
+import 'screens/now_playing_list.dart';
 
 void main() => runApp(App());
 
@@ -13,138 +9,131 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MovieList(),
+      title: 'Movie Plaing',
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+      ),
+      home: HomePage(),
     );
   }
 }
 
-class MovieList extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _MovieListState createState() => _MovieListState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MovieListState extends State<MovieList> {
-  NowPlayingModel nowPlayingData;
-
-  final apikey = 'Your_api_key';
-  final baseURL = 'https://api.themoviedb.org/3/movie';
-  final imageURL = 'https://image.tmdb.org/t/p/';
-  final size = 'w500';
-
-  Future<NowPlayingModel> fetchMovieList() async {
-    var respone = await http.get('$baseURL/now_playing?api_key=$apikey');
-    if (respone.statusCode == 200) {
-      var decodedJson = jsonDecode(respone.body);
-      nowPlayingData = NowPlayingModel.fromJson((decodedJson));
-      print(nowPlayingData.toJson());
-      setState(() {});
-    } else {
-      throw Exception('Failed to load data');
-    }
-    return nowPlayingData;
-  }
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+//  ScrollController _scrollViewController;
 
   @override
   void initState() {
     super.initState();
-    fetchMovieList();
-    setState(() {});
+    _tabController = TabController(vsync: this, length: 4);
+//    _scrollViewController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+//    _scrollViewController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Center(child: Text('Now Playing Movie')),
-      ),
-      body: nowPlayingData == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : GridView.count(
-              crossAxisCount: 1,
-              children: nowPlayingData.results
-                  .map((playing) => Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: InkWell(
-                          onTap: () {
-                            print(playing.id);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NowPlayingDetail(
-                                          results: playing,
-                                          apikey: apikey,
-                                          imageURL: imageURL,
-                                          baseURL: baseURL,
-                                          size: size,
-                                          id: playing.id,
-                                        )));
-                          },
-                          child: Hero(
-                            tag:
-                                '$imageURL$size${playing.posterPath}?api_key=$apikey',
-                            child: Card(
-                              elevation: 10.0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  /*Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      v.originalTitle,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),*/
-                                  Flexible(
-                                    flex: 12,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-//                                        fit: BoxFit.cover,
-                                          image: NetworkImage(
-                                            '$imageURL$size${playing.posterPath}?api_key=$apikey',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(0.0),
-                                      child: Text(
-                                        'VoteAverage : ${playing.voteAverage.toString()}',
-                                        style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  /* Flexible(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(2.0),
-                                      child: Text(
-                                        'Popularity : ${v.popularity}',
-                                        style: TextStyle(fontSize: 12.0),
-                                      ),
-                                    ),
-                                  ),*/
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ))
-                  .toList(),
+      body: NestedScrollView(
+//        controller: _scrollViewController,
+        headerSliverBuilder: (BuildContext context, bool innerboxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              pinned: false,
+              floating: false,
+              snap: false,
+//              forceElevated: innerboxIsScrolled,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text(
+                  'Movie Introduction',
+                  style: TextStyle(color: Colors.white, fontSize: 22.0),
+                ),
+              ),
+
+              /*bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    text: 'Playing',
+//                    icon: Icon(Icons.home),
+                  ),
+                  Tab(
+                    text: 'Rated',
+//                    icon: Icon(Icons.rate_review),
+                  ),
+                  Tab(
+                    text: 'Popular',
+//                    icon: Icon(Icons.rate_review),
+                  ),
+                  Tab(
+                    text: 'Upcoming',
+//                    icon: Icon(Icons.rate_review),
+                  ),
+                ],
+                controller: _tabController,
+              ),*/
             ),
+            SliverPersistentHeader(
+              delegate: _SliverPersistentHeaderDelegate(TabBar(
+                controller: _tabController,
+                labelColor: Colors.blue,
+                unselectedLabelColor: Colors.grey,
+                tabs: <Widget>[
+                  Tab(text: 'Playing', icon: Icon(Icons.local_movies)),
+                  Tab(text: 'Rated', icon: Icon(Icons.rate_review)),
+                  Tab(text: 'Popular', icon: Icon(Icons.person)),
+                  Tab(text: 'Upcoming', icon: Icon(Icons.category))
+                ],
+              )),
+            ),
+          ];
+        },
+        body: TabBarView(
+          children: <Widget>[
+            NowPlayingList(),
+            NowPlayingList(),
+            NowPlayingList(),
+            NowPlayingList(),
+          ],
+          controller: _tabController,
+        ),
+      ),
     );
+  }
+}
+
+class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar _tabBar;
+
+  _SliverPersistentHeaderDelegate(this._tabBar);
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      child: _tabBar,
+      color: Colors.white,
+    );
+  }
+
+  @override
+  double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

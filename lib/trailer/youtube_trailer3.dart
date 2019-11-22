@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tmdb_movie/now_playing_detail.dart';
+import 'package:flutter_tmdb_movie/screens/now_playing_detail.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class YoutubeTrailer extends StatefulWidget {
+class YoutubeTrailer3 extends StatefulWidget {
   @override
-  _YoutubeTrailerState createState() => _YoutubeTrailerState();
+  _YoutubeTrailer3State createState() => _YoutubeTrailer3State();
 }
 
-class _YoutubeTrailerState extends State<YoutubeTrailer> {
+class _YoutubeTrailer3State extends State<YoutubeTrailer3> {
   YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: NowPlayingDetail.videoId1,
+    initialVideoId: NowPlayingDetail.videoId3,
     flags: YoutubePlayerFlags(
       autoPlay: true,
       mute: false,
