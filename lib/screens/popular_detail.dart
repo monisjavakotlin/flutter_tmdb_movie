@@ -3,17 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/now_playing_model.dart';
+import '../models/popular_model.dart';
 import '../models/query_key_model.dart';
-import '../trailer/youtube_trailer.dart';
-import '../trailer/youtube_trailer2.dart';
-import '../trailer/youtube_trailer3.dart';
+import '../trailer/youtube_trailer7.dart';
+import '../trailer/youtube_trailer8.dart';
+import '../trailer/youtube_trailer9.dart';
 
-class NowPlayingDetail extends StatefulWidget {
+class PopularDetail extends StatefulWidget {
   List<String> keys = List<String>();
-  static String videoId1 = '';
-  static String videoId2 = '';
-  static String videoId3 = '';
+  static String videoId7 = '';
+  static String videoId8 = '';
+  static String videoId9 = '';
+
   final Results results;
   final String apikey;
   final String imageURL;
@@ -21,7 +22,7 @@ class NowPlayingDetail extends StatefulWidget {
   final String size;
   final int id;
 
-  NowPlayingDetail({
+  PopularDetail({
     this.results,
     this.apikey,
     this.imageURL,
@@ -31,10 +32,10 @@ class NowPlayingDetail extends StatefulWidget {
   });
 
   @override
-  _NowPlayingDetailState createState() => _NowPlayingDetailState();
+  _PopularDetailState createState() => _PopularDetailState();
 }
 
-class _NowPlayingDetailState extends State<NowPlayingDetail> {
+class _PopularDetailState extends State<PopularDetail> {
   QueryKeyModel queryKeyData;
 
   Future<QueryKeyModel> fetchVideoId(int id) async {
@@ -46,22 +47,22 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
 //      print(queryKeyData.toJson());
       queryKeyData.results.forEach((f) => widget.keys.add(f.key));
       if (widget.keys.length >= 3) {
-        NowPlayingDetail.videoId1 = widget.keys[0];
-        NowPlayingDetail.videoId2 = widget.keys[1];
-        NowPlayingDetail.videoId3 = widget.keys[2];
+        PopularDetail.videoId7 = widget.keys[0];
+        PopularDetail.videoId8 = widget.keys[1];
+        PopularDetail.videoId9 = widget.keys[2];
         print(widget.keys[0]);
         print(widget.keys[1]);
         print(widget.keys[2]);
       } else if (widget.keys.length >= 2) {
-        NowPlayingDetail.videoId1 = widget.keys[0];
-        NowPlayingDetail.videoId2 = widget.keys[1];
-        NowPlayingDetail.videoId3 = '';
+        PopularDetail.videoId7 = widget.keys[0];
+        PopularDetail.videoId8 = widget.keys[1];
+        PopularDetail.videoId9 = '';
         print(widget.keys[0]);
         print(widget.keys[1]);
       } else {
-        NowPlayingDetail.videoId1 = widget.keys[0];
-        NowPlayingDetail.videoId2 = '';
-        NowPlayingDetail.videoId3 = '';
+        PopularDetail.videoId7 = widget.keys[0];
+        PopularDetail.videoId8 = '';
+        PopularDetail.videoId9 = '';
         print(widget.keys[0]);
       }
     } else {
@@ -84,7 +85,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.blueGrey,
-        title: Text('Now Playing Movie Detail'),
+        title: Text('Popular Movie Detail'),
       ),
       body: Stack(
         children: <Widget>[
@@ -115,16 +116,6 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  /*     IconButton(
-                    tooltip: 'trailer',
-                    icon: Icon(
-                      Icons.reply_all,
-                      size: 40.0,
-                    ),
-                    onPressed: () {
-                      fetchVideoId(widget.id);
-                    },
-                  ),*/
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -138,7 +129,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer()));
+                                  builder: (context) => YoutubeTrailer7()));
                         },
                       ),
                       IconButton(
@@ -151,7 +142,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer2()));
+                                  builder: (context) => YoutubeTrailer8()));
                         },
                       ),
                       IconButton(
@@ -164,7 +155,7 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer3()));
+                                  builder: (context) => YoutubeTrailer9()));
                         },
                       ),
                     ],
@@ -176,23 +167,6 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                     maxLines: 6,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  /*     Text("GenreIds",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: widget.results.genreIds == null
-                        ? <Widget>[Text("This is the final form")]
-                        : widget.results.genreIds
-                            .map((n) => FilterChip(
-                                  backgroundColor: Colors.green,
-                                  label: Text(
-                                    n.toString(),
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  onSelected: (b) {},
-                                ))
-                            .toList(),
-                  )*/
                 ],
               ),
             ),

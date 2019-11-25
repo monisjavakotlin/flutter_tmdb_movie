@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_tmdb_movie/screens/popular_list.dart';
+import 'package:flutter_tmdb_movie/screens/top_rated_list.dart';
+import 'package:flutter_tmdb_movie/screens/upcoming_list.dart';
 
 import 'screens/now_playing_list.dart';
 
@@ -9,6 +12,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Movie Plaing',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -102,9 +106,9 @@ class _HomePageState extends State<HomePage>
         body: TabBarView(
           children: <Widget>[
             NowPlayingList(),
-            NowPlayingList(),
-            NowPlayingList(),
-            NowPlayingList(),
+            TopRatedList(),
+            PopularList(),
+            UpcomingList(),
           ],
           controller: _tabController,
         ),
