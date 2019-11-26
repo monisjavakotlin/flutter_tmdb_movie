@@ -14,6 +14,7 @@ class Item {
 
 class NowPlayingList extends StatefulWidget {
   String page = '1';
+
   Item selectedUser;
   List<Item> users = <Item>[
     Item('1'),
@@ -30,7 +31,7 @@ class NowPlayingList extends StatefulWidget {
 class _NowPlayingListState extends State<NowPlayingList> {
   NowPlayingModel nowPlayingData;
 
-  final apikey = 'Your_api_key';
+  final apikey = 'your_api_key';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';
@@ -74,7 +75,7 @@ class _NowPlayingListState extends State<NowPlayingList> {
                 widget.page = widget.selectedUser.name;
                 fetchMovieList();
               });
-              print(widget.page);
+//              print(widget.page);
             },
             items: widget.users.map((Item user) {
               return DropdownMenuItem<Item>(
@@ -83,10 +84,10 @@ class _NowPlayingListState extends State<NowPlayingList> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'page:${user.name}',
+                      'Page ${user.name}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

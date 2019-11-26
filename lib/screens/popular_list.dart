@@ -6,7 +6,23 @@ import 'package:http/http.dart' as http;
 
 import 'top_rated_detail.dart';
 
+class Item {
+  const Item(this.name);
+  final String name;
+}
+
 class PopularList extends StatefulWidget {
+  String page = '1';
+
+  Item selectedUser;
+  List<Item> users = <Item>[
+    Item('1'),
+    Item('2'),
+    Item('3'),
+    Item('4'),
+    Item('5'),
+  ];
+
   @override
   _PopularListState createState() => _PopularListState();
 }
@@ -14,14 +30,14 @@ class PopularList extends StatefulWidget {
 class _PopularListState extends State<PopularList> {
   UpcomingModel popularData;
 
-  final apikey = 'Your_api_key';
+  final apikey = 'your_api_key';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';
 
   Future<UpcomingModel> fetchData() async {
-    var respone = await http
-        .get('$baseURL/popular?api_key=$apikey&language=en-US&page=1');
+    var respone = await http.get(
+        '$baseURL/popular?api_key=$apikey&language=en-US&page=${widget.page}');
     if (respone.statusCode == 200) {
       var decordJson = jsonDecode(respone.body);
       popularData = UpcomingModel.fromJson(decordJson);
@@ -41,10 +57,44 @@ class _PopularListState extends State<PopularList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      appBar: AppBar(
-//        backgroundColor: Colors.cyan,
-//        title: Center(child: Text('Now Playing Movie')),
-//      ),
+      appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Center(child: Text('Popular Movie')),
+        actions: <Widget>[
+          DropdownButton(
+//                  hint: Text('Select item'),
+            hint: Text('Page'),
+//            hint: Icon(Icons.more_vert),
+            value: widget.selectedUser,
+            onChanged: (Item Value) {
+              setState(() {
+                widget.selectedUser = Value;
+                widget.page = widget.selectedUser.name;
+                fetchData();
+              });
+//              print(widget.page);
+            },
+            items: widget.users.map((Item user) {
+              return DropdownMenuItem<Item>(
+                value: user,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Page ${user.name}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
       body: popularData == null
           ? Center(
               child: CircularProgressIndicator(),
@@ -71,7 +121,7 @@ class _PopularListState extends State<PopularList> {
                           },
                           child: Hero(
                             tag:
-                                '$imageURL$size${popu.posterPath}?api_key=$apikey',
+                                '$imageURL$size${popu.posterPath}?api_key=$apikey&language=en-US&page=${widget.page}',
                             child: Card(
                               elevation: 5.0,
                               shape: RoundedRectangleBorder(
@@ -87,7 +137,7 @@ class _PopularListState extends State<PopularList> {
                                         image: DecorationImage(
 //                                        fit: BoxFit.cover,
                                           image: NetworkImage(
-                                            '$imageURL$size${popu.posterPath}?api_key=$apikey',
+                                            '$imageURL$size${popu.posterPath}?api_key=$apikey&language=en-US&page=${widget.page}',
                                           ),
                                         ),
                                       ),

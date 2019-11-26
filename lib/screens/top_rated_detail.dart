@@ -10,7 +10,7 @@ import '../trailer/youtube_trailer5.dart';
 import '../trailer/youtube_trailer6.dart';
 
 class TopRatedDetail extends StatefulWidget {
-  List<String> keys = List<String>();
+  final List<String> keys = List<String>();
   static String videoId4 = '';
   static String videoId5 = '';
   static String videoId6 = '';

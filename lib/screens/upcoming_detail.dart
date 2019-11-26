@@ -10,7 +10,7 @@ import '../trailer/youtube_trailer11.dart';
 import '../trailer/youtube_trailer12.dart';
 
 class UpcomingDetail extends StatefulWidget {
-  List<String> keys = List<String>();
+  final List<String> keys = List<String>();
   static String videoId10 = '';
   static String videoId11 = '';
   static String videoId12 = '';
