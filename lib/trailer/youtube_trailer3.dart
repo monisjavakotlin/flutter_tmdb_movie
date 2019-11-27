@@ -26,10 +26,10 @@ class _YoutubeTrailer3State extends State<YoutubeTrailer3> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[100],
-      appBar: AppBar(
+ /*     appBar: AppBar(
         backgroundColor: Colors.cyan,
         title: Text('Trailer'),
-      ),
+      ),*/
       body: Center(
         child: Container(
           child: YoutubePlayer(

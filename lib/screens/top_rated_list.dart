@@ -28,19 +28,19 @@ class TopRatedList extends StatefulWidget {
 }
 
 class _TopRatedListState extends State<TopRatedList> {
-  UpcomingModel topRatedData;
+  TopRatedModel topRatedData;
 
   final apikey = 'your_api_key';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';
 
-  Future<UpcomingModel> fetchData() async {
+  Future<TopRatedModel> fetchData() async {
     var respone = await http.get(
         '$baseURL/top_rated?api_key=$apikey&language=en-US&page=${widget.page}');
     if (respone.statusCode == 200) {
       var decordJson = jsonDecode(respone.body);
-      topRatedData = UpcomingModel.fromJson(decordJson);
+      topRatedData = TopRatedModel.fromJson(decordJson);
 //      print(topRatedData.toJson());
       setState(() {});
     }

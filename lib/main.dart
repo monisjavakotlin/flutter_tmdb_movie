@@ -6,7 +6,11 @@ import 'package:flutter_tmdb_movie/screens/upcoming_list.dart';
 
 import 'screens/now_playing_list.dart';
 
-void main() => runApp(App());
+void main() {
+//  SystemChrome.setPreferredOrientations(
+//      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(App());
+}
 
 class App extends StatelessWidget {
   @override

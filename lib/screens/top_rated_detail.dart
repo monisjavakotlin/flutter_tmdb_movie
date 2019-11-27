@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tmdb_movie/posters/top_poster_show.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/query_key_model.dart';
@@ -178,14 +179,28 @@ class _TopRatedDetailState extends State<TopRatedDetail> {
                     '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}',
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 250.0,
-                    width: 300.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PosterShow(
+                                    results: widget.results,
+                                    apikey: widget.apikey,
+                                    imageURL: widget.imageURL,
+                                    baseURL: widget.baseURL,
+                                    size: widget.size,
+                                  )));
+                    },
+                    child: Container(
+                      height: 250.0,
+                      width: 300.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
 //                      fit: BoxFit.cover,
-                        image: NetworkImage(
-                            '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}'),
+                          image: NetworkImage(
+                              '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}'),
+                        ),
                       ),
                     ),
                   ),

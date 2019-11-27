@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/query_key_model.dart';
 import '../models/upcoming_model.dart';
+import '../posters/upcoming_poster_show.dart';
 import '../trailer/youtube_trailer10.dart';
 import '../trailer/youtube_trailer11.dart';
 import '../trailer/youtube_trailer12.dart';
@@ -178,14 +179,28 @@ class _UpcomingDetailState extends State<UpcomingDetail> {
                     '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}',
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 250.0,
-                    width: 300.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpcomingPosterShow(
+                                    results: widget.results,
+                                    apikey: widget.apikey,
+                                    imageURL: widget.imageURL,
+                                    baseURL: widget.baseURL,
+                                    size: widget.size,
+                                  )));
+                    },
+                    child: Container(
+                      height: 250.0,
+                      width: 300.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
 //                      fit: BoxFit.cover,
-                        image: NetworkImage(
-                            '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}'),
+                          image: NetworkImage(
+                              '${widget.imageURL}${widget.size}${widget.results.posterPath}?api_key=${widget.apikey}'),
+                        ),
                       ),
                     ),
                   ),

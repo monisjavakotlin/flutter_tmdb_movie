@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_tmdb_movie/models/top_rated_model.dart';
+import 'package:flutter_tmdb_movie/models/popular_model.dart';
 import 'package:http/http.dart' as http;
 
-import 'top_rated_detail.dart';
+import 'popular_detail.dart';
 
 class Item {
   const Item(this.name);
@@ -28,19 +28,19 @@ class PopularList extends StatefulWidget {
 }
 
 class _PopularListState extends State<PopularList> {
-  UpcomingModel popularData;
+  PopularModel popularData;
 
   final apikey = 'your_api_key';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';
 
-  Future<UpcomingModel> fetchData() async {
+  Future<PopularModel> fetchData() async {
     var respone = await http.get(
         '$baseURL/popular?api_key=$apikey&language=en-US&page=${widget.page}');
     if (respone.statusCode == 200) {
       var decordJson = jsonDecode(respone.body);
-      popularData = UpcomingModel.fromJson(decordJson);
+      popularData = PopularModel.fromJson(decordJson);
 //      print(popularData.toJson());
       setState(() {});
     }
@@ -110,7 +110,7 @@ class _PopularListState extends State<PopularList> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => TopRatedDetail(
+                                    builder: (context) => PopularDetail(
                                           results: popu,
                                           apikey: apikey,
                                           imageURL: imageURL,

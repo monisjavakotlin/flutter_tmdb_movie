@@ -1,9 +1,9 @@
-class UpcomingModel {
+class TopRatedModel {
   List<Results> results;
 
-  UpcomingModel({this.results});
+  TopRatedModel({this.results});
 
-  UpcomingModel.fromJson(Map<String, dynamic> json) {
+  TopRatedModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
       results = new List<Results>();
       json['results'].forEach((v) {
