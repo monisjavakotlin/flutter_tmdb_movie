@@ -139,7 +139,9 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer()));
+                                  builder: (context) => YoutubeTrailer(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
