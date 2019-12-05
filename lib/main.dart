@@ -26,30 +26,7 @@ class App extends StatelessWidget {
   }
 }
 
-/*class Item {
-  Item({this.name: '1'});
-  String name;
-}*/
-
 class HomePage extends StatefulWidget {
-/*
-  static Item selectedUser;
-  final List<Item> users = <Item>[
-    Item(name: '1'),
-    Item(name: '2'),
-    Item(name: '3'),
-    Item(name: '4'),
-    Item(name: '5'),
-  ];
-*/
-
-/*  String get name {
-    if (selectedUser.name == null) {
-      selectedUser.name = users[0].name;
-    }
-    return selectedUser.name;
-  }*/
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -82,38 +59,6 @@ class _HomePageState extends State<HomePage>
         headerSliverBuilder: (BuildContext context, bool innerboxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              /*actions: <Widget>[
-                DropdownButton(
-//                  hint: Text('Select item'),
-                  hint: Text('Page'),
-//            hint: Icon(Icons.more_vert),
-                  value: HomePage.selectedUser,
-                  onChanged: (Item value) {
-                    setState(() {
-                      HomePage.selectedUser = value;
-                    });
-                  },
-                  items: widget.users.map((Item user) {
-                    return DropdownMenuItem<Item>(
-                      value: user,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Page ${user.name}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ],*/
-
               pinned: false,
               floating: false,
               snap: false,
@@ -125,28 +70,6 @@ class _HomePageState extends State<HomePage>
                   style: TextStyle(color: Colors.white, fontSize: 22.0),
                 ),
               ),
-
-              /*bottom: TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    text: 'Playing',
-//                    icon: Icon(Icons.home),
-                  ),
-                  Tab(
-                    text: 'Rated',
-//                    icon: Icon(Icons.rate_review),
-                  ),
-                  Tab(
-                    text: 'Popular',
-//                    icon: Icon(Icons.rate_review),
-                  ),
-                  Tab(
-                    text: 'Upcoming',
-//                    icon: Icon(Icons.rate_review),
-                  ),
-                ],
-                controller: _tabController,
-              ),*/
             ),
             SliverPersistentHeader(
               delegate: _SliverPersistentHeaderDelegate(TabBar(

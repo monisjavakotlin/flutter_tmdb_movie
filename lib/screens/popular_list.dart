@@ -30,7 +30,7 @@ class PopularList extends StatefulWidget {
 class _PopularListState extends State<PopularList> {
   PopularModel popularData;
 
-  final apikey = 'your_api_key';
+  final apikey = 'your_apikey';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';

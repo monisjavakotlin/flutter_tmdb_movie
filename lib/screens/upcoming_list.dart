@@ -29,7 +29,7 @@ class UpcomingList extends StatefulWidget {
 class _UpcomingListState extends State<UpcomingList> {
   UpcomingModel upcomingData;
 
-  final apikey = 'your_api_key';
+  final apikey = 'your_apikey';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';

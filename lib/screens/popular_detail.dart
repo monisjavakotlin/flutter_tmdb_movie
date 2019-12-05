@@ -130,7 +130,9 @@ class _PopularDetailState extends State<PopularDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer7()));
+                                  builder: (context) => YoutubeTrailer7(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -143,7 +145,9 @@ class _PopularDetailState extends State<PopularDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer8()));
+                                  builder: (context) => YoutubeTrailer8(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -156,7 +160,9 @@ class _PopularDetailState extends State<PopularDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer9()));
+                                  builder: (context) => YoutubeTrailer9(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                     ],

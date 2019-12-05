@@ -154,7 +154,9 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer2()));
+                                  builder: (context) => YoutubeTrailer2(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -167,7 +169,9 @@ class _NowPlayingDetailState extends State<NowPlayingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer3()));
+                                  builder: (context) => YoutubeTrailer3(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                     ],

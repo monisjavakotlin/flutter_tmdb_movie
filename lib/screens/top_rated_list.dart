@@ -30,7 +30,7 @@ class TopRatedList extends StatefulWidget {
 class _TopRatedListState extends State<TopRatedList> {
   TopRatedModel topRatedData;
 
-  final apikey = 'your_api_key';
+  final apikey = 'your_apikey';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';

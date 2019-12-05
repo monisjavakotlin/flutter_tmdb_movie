@@ -31,7 +31,7 @@ class NowPlayingList extends StatefulWidget {
 class _NowPlayingListState extends State<NowPlayingList> {
   NowPlayingModel nowPlayingData;
 
-  final apikey = 'your_api_key';
+  final apikey = 'your_apikey';
   final baseURL = 'https://api.themoviedb.org/3/movie';
   final imageURL = 'https://image.tmdb.org/t/p/';
   final size = 'w500';

@@ -130,7 +130,9 @@ class _UpcomingDetailState extends State<UpcomingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer10()));
+                                  builder: (context) => YoutubeTrailer10(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -143,7 +145,9 @@ class _UpcomingDetailState extends State<UpcomingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer11()));
+                                  builder: (context) => YoutubeTrailer11(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -156,7 +160,9 @@ class _UpcomingDetailState extends State<UpcomingDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer12()));
+                                  builder: (context) => YoutubeTrailer12(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                     ],

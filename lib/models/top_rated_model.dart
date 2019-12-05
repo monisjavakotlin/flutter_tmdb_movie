@@ -22,7 +22,7 @@ class TopRatedModel {
 }
 
 class Results {
-  double popularity;
+  var popularity;
   int voteCount;
   bool video;
   String posterPath;

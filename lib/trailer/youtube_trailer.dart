@@ -32,14 +32,25 @@ class _YoutubeTrailerState extends State<YoutubeTrailer> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[100],
-      /*  appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Text('Trailer'),
-      ),*/
       body: OrientationBuilder(builder: (context, orientation) {
         return orientation == Orientation.portrait
             ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  SizedBox(
+                    height: 0.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        '${widget.results.originalTitle}',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
                   Container(
                     child: YoutubePlayer(
                       controller: _controller,
@@ -47,54 +58,35 @@ class _YoutubeTrailerState extends State<YoutubeTrailer> {
                       liveUIColor: Colors.amber,
                     ),
                   ),
-                  SizedBox(
-                    height: 30.0,
+//                  SizedBox(
+//                    height: 30.0,
+//                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Popularity : ${widget.results.popularity}',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Title : ${widget.results.originalTitle}',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Popularity : ${widget.results.popularity}',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'VoteAverage : ${widget.results.voteAverage}',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Adult : ${widget.results.adult}',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'ReleaseDate : ${widget.results.releaseDate}',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'VoteAverage : ${widget.results.voteAverage}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Adult : ${widget.results.adult}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'ReleaseDate : ${widget.results.releaseDate}',
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                 ],

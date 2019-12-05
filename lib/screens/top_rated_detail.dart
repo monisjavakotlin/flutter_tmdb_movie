@@ -130,7 +130,9 @@ class _TopRatedDetailState extends State<TopRatedDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer4()));
+                                  builder: (context) => YoutubeTrailer4(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -143,7 +145,9 @@ class _TopRatedDetailState extends State<TopRatedDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer5()));
+                                  builder: (context) => YoutubeTrailer5(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                       IconButton(
@@ -156,7 +160,9 @@ class _TopRatedDetailState extends State<TopRatedDetail> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => YoutubeTrailer6()));
+                                  builder: (context) => YoutubeTrailer6(
+                                        results: widget.results,
+                                      )));
                         },
                       ),
                     ],
